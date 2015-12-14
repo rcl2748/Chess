@@ -98,21 +98,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\images\board.png" />
+    <Resource Include="resources\Images\board.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\images\bb.png" />
-    <Resource Include="resources\images\bk.png" />
-    <Resource Include="resources\images\bn.png" />
-    <Resource Include="resources\images\bp.png" />
-    <Resource Include="resources\images\bq.png" />
-    <Resource Include="resources\images\br.png" />
-    <Resource Include="resources\images\wb.png" />
-    <Resource Include="resources\images\wk.png" />
-    <Resource Include="resources\images\wq.png" />
-    <Resource Include="resources\images\wn.png" />
-    <Resource Include="resources\images\wp.png" />
-    <Resource Include="resources\images\wr.png" />
+    <Resource Include="resources\Images\bb.png" />
+    <Resource Include="resources\Images\bk.png" />
+    <Resource Include="resources\Images\bn.png" />
+    <Resource Include="resources\Images\bp.png" />
+    <Resource Include="resources\Images\bq.png" />
+    <Resource Include="resources\Images\br.png" />
+    <Resource Include="resources\Images\wb.png" />
+    <Resource Include="resources\Images\wk.png" />
+    <Resource Include="resources\Images\wq.png" />
+    <Resource Include="resources\Images\wn.png" />
+    <Resource Include="resources\Images\wp.png" />
+    <Resource Include="resources\Images\wr.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

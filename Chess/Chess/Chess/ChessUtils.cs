@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace Chess
 {
     public delegate void PieceMove(ChessSquare square);
+
+    [TypeConverter(typeof(ChessSquareTypeConverter))]
     public class ChessSquare
     {
         public byte File { get; set; }
@@ -32,6 +36,25 @@ namespace Chess
         }
     }
 
+    public class ChessSquareTypeConverter : TypeConverter
+    {
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            string text = value as string;
+
+            return text != null ? new ChessSquare(text) : base.ConvertFrom(context, culture, value);
+        }
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            if (sourceType == typeof(string))
+            {
+                return true;
+            }
+
+            return base.CanConvertFrom(context, sourceType);
+        }
+    }
+
     public class ChessMove
     {
         public bool IsCapture { get; set; }
@@ -52,26 +75,26 @@ namespace Chess
 
     public enum PieceType
     {
-        KING,
-        QUEEN,
-        ROOK,
-        BISHOP,
-        KNIGHT,
-        PAWN
+        King,
+        Queen,
+        Rook,
+        Bishop,
+        Knight,
+        Pawn
     }
 
     public enum Side
     {
-        WHITE,
-        BLACK
+        White,
+        Black
     }
 
     public class BoardUtils
     {
 
-        public static event PieceMove PieceMoveEvent;
         private static Dictionary<PieceType, string> WhiteTextureSources = new Dictionary<PieceType, string>();
         private static Dictionary<PieceType, string> BlackTextureSources = new Dictionary<PieceType, string>();
+        public static Dictionary<PieceType, char> PieceNotationLetters { get; } = new Dictionary<PieceType, char>();
 
         static BoardUtils()
         {
@@ -83,13 +106,26 @@ namespace Chess
             PieceNotationLetters.Add(PieceType.KNIGHT, 'N');*/
 
             // Declare pieces' textures
-            WhiteTextureSources.Add(PieceType.KING, "bb.png");
+            WhiteTextureSources.Add(PieceType.King, "wk.png");
+            WhiteTextureSources.Add(PieceType.Queen, "wq.png");
+            WhiteTextureSources.Add(PieceType.Rook, "wr.png");
+            WhiteTextureSources.Add(PieceType.Bishop, "wb.png");
+            WhiteTextureSources.Add(PieceType.Knight, "wn.png");
+            WhiteTextureSources.Add(PieceType.Pawn, "wp.png");
+
+            BlackTextureSources.Add(PieceType.King, "bk.png");
+            BlackTextureSources.Add(PieceType.Queen, "bq.png");
+            BlackTextureSources.Add(PieceType.Rook, "br.png");
+            BlackTextureSources.Add(PieceType.Bishop, "bb.png");
+            BlackTextureSources.Add(PieceType.Knight, "bn.png");
+            BlackTextureSources.Add(PieceType.Pawn, "bp.png");
         }
 
         // Get texture path of a piece
-        public static BitmapImage GetTexture(string path)
+        public static BitmapImage GetTexture(Side side, PieceType type)
         {
-            return new BitmapImage(new Uri("ms-appx:///images/" + path));
+            string path = side == Side.White ? WhiteTextureSources[type] : BlackTextureSources[type];
+            return new BitmapImage(new Uri(@"resources\Images\" + path, UriKind.Relative));
         }
 
         public static ChessSquare GetChessSquare(Point point)
@@ -100,12 +136,9 @@ namespace Chess
             byte rank = (byte)(y / MainWindow.SquareSize);
             if (file > 0 && file < 9 && rank > 0 && rank < 9)
             {
-                return new ChessSquare();
+                return new ChessSquare(file, rank);
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         public static byte GetFile(char file)

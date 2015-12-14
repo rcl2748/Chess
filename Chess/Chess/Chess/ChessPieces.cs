@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -11,11 +12,20 @@ namespace Chess
         private static ChessPiece DraggingPiece { get; set; }
         public PieceType Type { get; set; }
         public Side Side { get; set; }
-        public ChessSquare Position { get; set; }
+        private ChessSquare _position;
+        public ChessSquare Position
+        {
+            get
+            {
+                return _position;
+            }
+            set { _position = value; }
+        }
 
         public ChessPiece()
         {
             MouseDown += OnMouseDown;
+            Source = BoardUtils.GetTexture(Side, Type);
         }
 
         private void OnMouseDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
@@ -35,19 +45,14 @@ namespace Chess
 
     public class King : ChessPiece
     {
-        public const char Letter = 'K';
-        public static BitmapImage WhiteTexture = BoardUtils.GetTexture("wk.png");
-        public static BitmapImage BlackTexture = BoardUtils.GetTexture("bk.png");
-
         public King()
         {
-            Type = PieceType.KING;
+            Type = PieceType.King;
         }
 
         public King(ChessSquare initPosition) : this()
         {
             Position = initPosition;
-            Source = Side == Side.WHITE ? WhiteTexture : BlackTexture;
         }
 
         protected override bool OnMoveValidation(ChessSquare square)
