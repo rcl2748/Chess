@@ -51,8 +51,8 @@ namespace Chess
             //            margin.Bottom = 500 - y - BoardUtils.SquareSize * 2;
             //            Margin = new Thickness(x, y, 0, 0);
             //            MainWindow.BoardCanvas.Set
-            Canvas.SetLeft(this, x);
-            Canvas.SetTop(this, y);
+            Canvas.SetLeft(this, x - 10);
+            Canvas.SetTop(this, y - 10);
             Width = BoardUtils.SquareSize;
             Height = BoardUtils.SquareSize;
         }
