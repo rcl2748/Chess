@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Chess
@@ -10,13 +11,14 @@ namespace Chess
     /// </summary>
     public partial class MainWindow : Window
     {
-        public const int SquareSize = 53;
+        public static Canvas BoardCanvas { get; set; }
         public static ChessPiece DraggingPiece { get; set; }
         public MainWindow()
         {
             InitializeComponent();
             MouseUp += OnMouseUp;
             MouseMove += OnMouseMove;
+            BoardCanvas = BCanvas;
         }
 
         private void OnMouseMove(object sender, MouseEventArgs args)
@@ -25,20 +27,27 @@ namespace Chess
             if (DraggingPiece != null)
             {
                 Point mousePos = args.GetPosition(null);
-                Thickness margin = DraggingPiece.Margin;
-                margin.Left = mousePos.X - 27;
-                margin.Top = mousePos.Y - 27;
-                DraggingPiece.Margin = margin;
+                //                Thickness margin = DraggingPiece.Margin;
+                //                margin.Left = mousePos.X - 27;
+                //                margin.Top = mousePos.Y - 27;
+                //                DraggingPiece.Margin = margin;
+                DraggingPiece.MovePieceToPosition(mousePos.X - 27, mousePos.Y - 27);
             }
         }
 
         private void OnMouseUp(object sender, MouseButtonEventArgs args)
         {
-            Point point = args.GetPosition(null);
-            double x = point.X - 10;
-            double y = point.Y - 10;
-           // DraggingPiece.ValidateMove()
-            DraggingPiece = null;
+            if (DraggingPiece != null)
+            {
+                Point point = args.GetPosition(null);
+                ChessSquare square = BoardUtils.GetChessSquare(point);
+                if (!square.Equals(ChessSquare.Invalid))
+                {
+                    DraggingPiece.Move(square);
+                }
+
+                DraggingPiece = null;
+            }
         }
     }
 }

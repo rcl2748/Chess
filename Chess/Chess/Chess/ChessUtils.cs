@@ -7,14 +7,13 @@ using System.Windows.Media.Imaging;
 
 namespace Chess
 {
-    public delegate void PieceMove(ChessSquare square);
-
     [TypeConverter(typeof(ChessSquareTypeConverter))]
-    public class ChessSquare
+    public struct ChessSquare
     {
-        public byte File { get; set; }
-        public byte Rank { get; set; }
-        public ChessSquare(byte file, byte rank)
+        public static ChessSquare Invalid = new ChessSquare("");
+        public sbyte File { get; set; }
+        public sbyte Rank { get; set; }
+        public ChessSquare(sbyte file, sbyte rank)
         {
             File = file;
             Rank = rank;
@@ -27,6 +26,11 @@ namespace Chess
                 char[] chars = pos.ToCharArray();
                 File = BoardUtils.GetFile(chars[0]);
                 Rank = BoardUtils.GetRank(chars[1]);
+            }
+            else
+            {
+                File = -1;
+                Rank = -1;
             }
         }
 
@@ -91,7 +95,7 @@ namespace Chess
 
     public class BoardUtils
     {
-
+        public const int SquareSize = 53;
         private static Dictionary<PieceType, string> WhiteTextureSources = new Dictionary<PieceType, string>();
         private static Dictionary<PieceType, string> BlackTextureSources = new Dictionary<PieceType, string>();
         public static Dictionary<PieceType, char> PieceNotationLetters { get; } = new Dictionary<PieceType, char>();
@@ -132,27 +136,27 @@ namespace Chess
         {
             double x = point.X - 10;
             double y = point.Y - 10;
-            byte file = (byte)(x / MainWindow.SquareSize);
-            byte rank = (byte)(y / MainWindow.SquareSize);
-            if (file > 0 && file < 9 && rank > 0 && rank < 9)
+            sbyte file = (sbyte)(x / SquareSize);
+            sbyte rank = (sbyte)(y / SquareSize);
+            if (file < 8 && rank < 8)
             {
                 return new ChessSquare(file, rank);
             }
-            return null;
+            return ChessSquare.Invalid;
         }
 
-        public static byte GetFile(char file)
+        public static sbyte GetFile(char file)
         {
-            return (byte)(file - 96);
+            return (sbyte)(file - 96);
         }
 
         public static char GetFile(byte file)
         {
             return (char)(file + 96);
         }
-        public static byte GetRank(char file)
+        public static sbyte GetRank(char file)
         {
-            return (byte)(file - 48);
+            return (sbyte)(file - 48);
         }
 
         public static char GetRank(byte file)

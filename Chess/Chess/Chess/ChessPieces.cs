@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -19,14 +20,50 @@ namespace Chess
             {
                 return _position;
             }
-            set { _position = value; }
+            set
+            {
+                _position = value;
+                Debug.WriteLine(value.File + ":" + value.Rank);
+                MovePieceToPosition(value);
+            }
         }
 
         public ChessPiece()
         {
             MouseDown += OnMouseDown;
             Source = BoardUtils.GetTexture(Side, Type);
+            Width = BoardUtils.SquareSize;
+            Height = BoardUtils.SquareSize;
         }
+        public bool Move(ChessSquare square)
+        {
+            if (ValidateMove(square))
+            {
+                Position = square;
+                return true;
+            }
+            return false;
+        }
+
+        public void MovePieceToPosition(double x, double y)
+        {
+            //            margin.Right = 800 - x - BoardUtils.SquareSize - 10;
+            //            margin.Bottom = 500 - y - BoardUtils.SquareSize * 2;
+            //            Margin = new Thickness(x, y, 0, 0);
+            //            MainWindow.BoardCanvas.Set
+            Canvas.SetLeft(this, x);
+            Canvas.SetTop(this, y);
+            Width = BoardUtils.SquareSize;
+            Height = BoardUtils.SquareSize;
+        }
+
+        public void MovePieceToPosition(ChessSquare square)
+        {
+            double x = 10 + BoardUtils.SquareSize * square.File;
+            double y = 10 + BoardUtils.SquareSize * square.Rank;
+            MovePieceToPosition(x, y);
+        }
+
 
         private void OnMouseDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
