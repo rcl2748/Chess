@@ -23,7 +23,6 @@ namespace Chess
             set
             {
                 _position = value;
-                Debug.WriteLine(value.File + ":" + value.Rank);
                 MovePieceToPosition(value);
             }
         }

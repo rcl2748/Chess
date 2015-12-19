@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Media;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -50,12 +51,7 @@ namespace Chess
         }
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
-            if (sourceType == typeof(string))
-            {
-                return true;
-            }
-
-            return base.CanConvertFrom(context, sourceType);
+            return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
         }
     }
 
@@ -95,6 +91,7 @@ namespace Chess
 
     public class BoardUtils
     {
+        public static Side SideToMove = Side.White;
         public const int SquareSize = 53;
         private static Dictionary<PieceType, string> WhiteTextureSources = new Dictionary<PieceType, string>();
         private static Dictionary<PieceType, string> BlackTextureSources = new Dictionary<PieceType, string>();
@@ -130,6 +127,12 @@ namespace Chess
         {
             string path = side == Side.White ? WhiteTextureSources[type] : BlackTextureSources[type];
             return new BitmapImage(new Uri(@"resources\Images\" + path, UriKind.Relative));
+        }
+
+        public static void PlaySound(string soundname)
+        {
+            SoundPlayer player = new SoundPlayer(@"resources\Sounds\" + soundname);
+            player.Play();
         }
 
         public static ChessSquare GetChessSquare(Point point)

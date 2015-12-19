@@ -27,10 +27,6 @@ namespace Chess
             if (DraggingPiece != null)
             {
                 Point mousePos = args.GetPosition(null);
-                //                Thickness margin = DraggingPiece.Margin;
-                //                margin.Left = mousePos.X - 27;
-                //                margin.Top = mousePos.Y - 27;
-                //                DraggingPiece.Margin = margin;
                 DraggingPiece.MovePieceToPosition(mousePos.X - 27, mousePos.Y - 27);
             }
         }

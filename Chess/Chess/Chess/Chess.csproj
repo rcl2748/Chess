@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SoundType.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -88,6 +89,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -113,6 +115,19 @@
     <Resource Include="resources\Images\wn.png" />
     <Resource Include="resources\Images\wp.png" />
     <Resource Include="resources\Images\wr.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="resources\Sounds\capture.mp3" />
+    <Content Include="resources\Sounds\castle.mp3" />
+    <Content Include="resources\Sounds\check.mp3" />
+    <Content Include="resources\Sounds\game-end.mp3" />
+    <Content Include="resources\Sounds\game-start.mp3" />
+    <Content Include="resources\Sounds\move.mp3" />
+    <Content Include="resources\Sounds\notify.mp3" />
+    <Content Include="resources\Sounds\premove.mp3" />
+    <Content Include="resources\Sounds\promote.mp3" />
+    <Content Include="resources\Sounds\tenseconds.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
