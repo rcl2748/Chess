@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace Chess
 {
@@ -12,14 +10,22 @@ namespace Chess
     {
         private static ChessPiece DraggingPiece { get; set; }
         public PieceType Type { get; set; }
-        public Side Side { get; set; }
+        private Side _side;
+
+        public Side Side
+        {
+            get { return _side; }
+            set
+            {
+                _side = value;
+                Source = BoardUtils.GetTexture(Side, Type);
+            }
+        }
+
         private ChessSquare _position;
         public ChessSquare Position
         {
-            get
-            {
-                return _position;
-            }
+            get { return _position; }
             set
             {
                 _position = value;
@@ -27,46 +33,47 @@ namespace Chess
             }
         }
 
-        public ChessPiece()
+        public ChessPiece(PieceType type)
         {
             MouseDown += OnMouseDown;
-            Source = BoardUtils.GetTexture(Side, Type);
+            Type = type;
             Width = BoardUtils.SquareSize;
             Height = BoardUtils.SquareSize;
         }
         public bool Move(ChessSquare square)
         {
-            if (ValidateMove(square))
+            if (BoardUtils.SideToMove == Side && square != ChessSquare.Invalid && square != Position)
             {
-                Position = square;
-                return true;
+                ChessMove move = new ChessMove(this, Position, square);
+                if (move.IsValid)
+                {
+                    Position = square;
+                    SoundType.Move.Play();
+                    BoardUtils.SwitchSide();
+                    return true;
+                }
             }
+            MovePieceToPosition(Position);
             return false;
         }
 
         public void MovePieceToPosition(double x, double y)
         {
-            //            margin.Right = 800 - x - BoardUtils.SquareSize - 10;
-            //            margin.Bottom = 500 - y - BoardUtils.SquareSize * 2;
-            //            Margin = new Thickness(x, y, 0, 0);
-            //            MainWindow.BoardCanvas.Set
-            Canvas.SetLeft(this, x - 10);
-            Canvas.SetTop(this, y - 10);
-            Width = BoardUtils.SquareSize;
-            Height = BoardUtils.SquareSize;
+            Canvas.SetLeft(this, x);
+            Canvas.SetTop(this, y);
         }
 
         public void MovePieceToPosition(ChessSquare square)
         {
-            double x = 10 + BoardUtils.SquareSize * square.File;
-            double y = 10 + BoardUtils.SquareSize * square.Rank;
+            double x = BoardUtils.SquareSize * square.File;
+            double y = BoardUtils.BoardSize - BoardUtils.SquareSize * (square.Rank + 1);
             MovePieceToPosition(x, y);
         }
-
 
         private void OnMouseDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             MainWindow.DraggingPiece = this;
+            Panel.SetZIndex(this, 1);
         }
 
         public bool ValidateMove(ChessSquare square)
@@ -81,14 +88,63 @@ namespace Chess
 
     public class King : ChessPiece
     {
-        public King()
+        public King() : base(PieceType.King)
         {
-            Type = PieceType.King;
         }
 
-        public King(ChessSquare initPosition) : this()
+        protected override bool OnMoveValidation(ChessSquare square)
         {
-            Position = initPosition;
+            return true; //NYI
+        }
+    }
+    public class Queen : ChessPiece
+    {
+        public Queen() : base(PieceType.Queen)
+        {
+        }
+
+        protected override bool OnMoveValidation(ChessSquare square)
+        {
+            return true; //NYI
+        }
+    }
+    public class Rook : ChessPiece
+    {
+        public Rook() : base(PieceType.Rook)
+        {
+        }
+
+        protected override bool OnMoveValidation(ChessSquare square)
+        {
+            return true; //NYI
+        }
+    }
+    public class Bishop : ChessPiece
+    {
+        public Bishop() : base(PieceType.Bishop)
+        {
+        }
+
+        protected override bool OnMoveValidation(ChessSquare square)
+        {
+            return true; //NYI
+        }
+    }
+    public class Knight : ChessPiece
+    {
+        public Knight() : base(PieceType.Knight)
+        {
+        }
+
+        protected override bool OnMoveValidation(ChessSquare square)
+        {
+            return true; //NYI
+        }
+    }
+    public class Pawn : ChessPiece
+    {
+        public Pawn() : base(PieceType.Pawn)
+        {
         }
 
         protected override bool OnMoveValidation(ChessSquare square)

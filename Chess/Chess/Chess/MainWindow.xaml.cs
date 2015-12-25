@@ -11,14 +11,12 @@ namespace Chess
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static Canvas BoardCanvas { get; set; }
         public static ChessPiece DraggingPiece { get; set; }
         public MainWindow()
         {
             InitializeComponent();
             MouseUp += OnMouseUp;
-            MouseMove += OnMouseMove;
-            BoardCanvas = BCanvas;
+            BCanvas.MouseMove += OnMouseMove;
         }
 
         private void OnMouseMove(object sender, MouseEventArgs args)
@@ -27,7 +25,7 @@ namespace Chess
             if (DraggingPiece != null)
             {
                 Point mousePos = args.GetPosition(null);
-                DraggingPiece.MovePieceToPosition(mousePos.X - 27, mousePos.Y - 27);
+                DraggingPiece.MovePieceToPosition(mousePos.X - 37, mousePos.Y - 37);
             }
         }
 
@@ -37,11 +35,8 @@ namespace Chess
             {
                 Point point = args.GetPosition(null);
                 ChessSquare square = BoardUtils.GetChessSquare(point);
-                if (!square.Equals(ChessSquare.Invalid))
-                {
-                    DraggingPiece.Move(square);
-                }
-
+                DraggingPiece.Move(square);
+                Panel.SetZIndex(DraggingPiece, 0);
                 DraggingPiece = null;
             }
         }
