@@ -9,18 +9,10 @@ namespace Chess
     public abstract class ChessPiece : Image
     {
         private static ChessPiece DraggingPiece { get; set; }
-        public PieceType Type { get; set; }
-        private Side _side;
+        private Image image
+        public PieceType Type { get; }
 
-        public Side Side
-        {
-            get { return _side; }
-            set
-            {
-                _side = value;
-                Source = BoardUtils.GetTexture(Side, Type);
-            }
-        }
+        public Side Side { get; }
 
         private ChessSquare _position;
         public ChessSquare Position
@@ -33,10 +25,13 @@ namespace Chess
             }
         }
 
-        public ChessPiece(PieceType type)
+        public ChessPiece(PieceType type, Side side, ChessSquare initPosition)
         {
             MouseDown += OnMouseDown;
             Type = type;
+            Side = side;
+            BoardUtils.AddPiece(this);
+            Source = BoardUtils.GetTexture(Side, Type);
             Width = BoardUtils.SquareSize;
             Height = BoardUtils.SquareSize;
         }
@@ -88,7 +83,7 @@ namespace Chess
 
     public class King : ChessPiece
     {
-        public King() : base(PieceType.King)
+        public King(Side side, ChessSquare initPosition) : base(PieceType.King, side, initPosition)
         {
         }
 
@@ -99,7 +94,7 @@ namespace Chess
     }
     public class Queen : ChessPiece
     {
-        public Queen() : base(PieceType.Queen)
+        public Queen(Side side, ChessSquare initPosition) : base(PieceType.Queen, side, initPosition)
         {
         }
 
@@ -110,7 +105,7 @@ namespace Chess
     }
     public class Rook : ChessPiece
     {
-        public Rook() : base(PieceType.Rook)
+        public Rook(Side side, ChessSquare initPosition) : base(PieceType.Rook, side, initPosition)
         {
         }
 
@@ -121,7 +116,7 @@ namespace Chess
     }
     public class Bishop : ChessPiece
     {
-        public Bishop() : base(PieceType.Bishop)
+        public Bishop(Side side, ChessSquare initPosition) : base(PieceType.Bishop, side, initPosition)
         {
         }
 
@@ -132,7 +127,7 @@ namespace Chess
     }
     public class Knight : ChessPiece
     {
-        public Knight() : base(PieceType.Knight)
+        public Knight(Side side, ChessSquare initPosition) : base(PieceType.Knight, side, initPosition)
         {
         }
 
@@ -143,7 +138,7 @@ namespace Chess
     }
     public class Pawn : ChessPiece
     {
-        public Pawn() : base(PieceType.Pawn)
+        public Pawn(Side side, ChessSquare initPosition) : base(PieceType.Pawn, side, initPosition)
         {
         }
 

@@ -21,17 +21,6 @@ namespace Chess
     [TypeConverter(typeof(ChessSquareTypeConverter))]
     public struct ChessSquare
     {
-        public bool Equals(ChessSquare other)
-        {
-            return File == other.File && Rank == other.Rank;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            return obj is ChessSquare && Equals((ChessSquare)obj);
-        }
-
         public static ChessSquare Invalid = new ChessSquare("");
         public byte File { get; set; }
         public byte Rank { get; set; }

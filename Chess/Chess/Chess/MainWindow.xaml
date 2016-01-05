@@ -12,41 +12,41 @@
             <Image HorizontalAlignment="Left" Height="424" VerticalAlignment="Top" Width="424" RenderTransformOrigin="0.505,0.485" Source="resources/Images/board.png"/>
 
             <!-- Create the pieces -->
-            <chess:Rook Side="White" Position="a1"/>
-            <chess:Knight Side="White" Position="b1"/>
-            <chess:Bishop Side="White" Position="c1"/>
-            <chess:Queen Side="White" Position="d1"/>
-            <chess:King Side="White" Position="e1"/>
-            <chess:Bishop Side="White" Position="f1"/>
-            <chess:Knight Side="White" Position="g1"/>
-            <chess:Rook Side="White" Position="h1"/>
-
-            <chess:Pawn Side="White" Position="a2"/>
-            <chess:Pawn Side="White" Position="b2"/>
-            <chess:Pawn Side="White" Position="c2"/>
-            <chess:Pawn Side="White" Position="d2"/>
-            <chess:Pawn Side="White" Position="e2"/>
-            <chess:Pawn Side="White" Position="f2"/>
-            <chess:Pawn Side="White" Position="g2"/>
-            <chess:Pawn Side="White" Position="h2"/>
-
-            <chess:Rook Side="Black" Position="a8"/>
-            <chess:Knight Side="Black" Position="b8"/>
-            <chess:Bishop Side="Black" Position="c8"/>
-            <chess:Queen Side="Black" Position="d8"/>
-            <chess:King Side="Black" Position="e8"/>
-            <chess:Bishop Side="Black" Position="f8"/>
-            <chess:Knight Side="Black" Position="g8"/>
-            <chess:Rook Side="Black" Position="h8"/>
-
-            <chess:Pawn Side="Black" Position="a7"/>
-            <chess:Pawn Side="Black" Position="b7"/>
-            <chess:Pawn Side="Black" Position="c7"/>
-            <chess:Pawn Side="Black" Position="d7"/>
-            <chess:Pawn Side="Black" Position="e7"/>
-            <chess:Pawn Side="Black" Position="f7"/>
-            <chess:Pawn Side="Black" Position="g7"/>
-            <chess:Pawn Side="Black" Position="h7"/>
+            <!--            <chess:Rook Side="White" Position="a1"/>-->
+            <!--            <chess:Knight Side="White" Position="b1"/>-->
+            <!--            <chess:Bishop Side="White" Position="c1"/>-->
+            <!--            <chess:Queen Side="White" Position="d1"/>-->
+            <!--            <chess:King Side="White" Position="e1"/>-->
+            <!--            <chess:Bishop Side="White" Position="f1"/>-->
+            <!--            <chess:Knight Side="White" Position="g1"/>-->
+            <!--            <chess:Rook Side="White" Position="h1"/>-->
+            <!---->
+<!--            <chess:Pawn Side="White" Position="a2"/>-->
+            <!--            <chess:Pawn Side="White" Position="b2"/>-->
+            <!--            <chess:Pawn Side="White" Position="c2"/>-->
+            <!--            <chess:Pawn Side="White" Position="d2"/>-->
+            <!--            <chess:Pawn Side="White" Position="e2"/>-->
+            <!--            <chess:Pawn Side="White" Position="f2"/>-->
+            <!--            <chess:Pawn Side="White" Position="g2"/>-->
+            <!--            <chess:Pawn Side="White" Position="h2"/>-->
+            <!---->
+<!--            <chess:Rook Side="Black" Position="a8"/>-->
+            <!--            <chess:Knight Side="Black" Position="b8"/>-->
+            <!--            <chess:Bishop Side="Black" Position="c8"/>-->
+            <!--            <chess:Queen Side="Black" Position="d8"/>-->
+            <!--            <chess:King Side="Black" Position="e8"/>-->
+            <!--            <chess:Bishop Side="Black" Position="f8"/>-->
+            <!--            <chess:Knight Side="Black" Position="g8"/>-->
+            <!--            <chess:Rook Side="Black" Position="h8"/>-->
+            <!---->
+<!--            <chess:Pawn Side="Black" Position="a7"/>-->
+            <!--            <chess:Pawn Side="Black" Position="b7"/>-->
+            <!--            <chess:Pawn Side="Black" Position="c7"/>-->
+            <!--            <chess:Pawn Side="Black" Position="d7"/>-->
+            <!--            <chess:Pawn Side="Black" Position="e7"/>-->
+            <!--            <chess:Pawn Side="Black" Position="f7"/>-->
+            <!--            <chess:Pawn Side="Black" Position="g7"/>-->
+            <!--            <chess:Pawn Side="Black" Position="h7"/>-->
         </Canvas>
     </Grid>
 </Window>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -42,7 +43,8 @@ namespace Chess
         public static Side SideToMove = Side.White;
         private static readonly Dictionary<PieceType, string> WhiteTextureSources = new Dictionary<PieceType, string>();
         private static readonly Dictionary<PieceType, string> BlackTextureSources = new Dictionary<PieceType, string>();
-
+        private static readonly List<ChessPiece> WhitePieces = new List<ChessPiece>();
+        private static readonly List<ChessPiece> BlackPieces = new List<ChessPiece>();
         static BoardUtils()
         {
             // Declare pieces' textures
@@ -65,6 +67,16 @@ namespace Chess
         {
             Moves.Add(move);
             MoveCount = Moves.Count / 2;
+        }
+
+        public static ChessPiece GetPieceAt(ChessSquare square, Side side)
+        {
+            return (side == Side.White ? WhitePieces : BlackPieces).FirstOrDefault(piece => piece.Position == square);
+        }
+
+        public static void AddPiece(ChessPiece piece)
+        {
+            (piece.Side == Side.White ? WhitePieces : BlackPieces).Add(piece);
         }
 
         // Get texture path of a piece
